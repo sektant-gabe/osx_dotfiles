@@ -1,0 +1,173 @@
+[[language]]
+name = "python"
+auto-format = true
+language-servers = [
+    {name = "pyright"},
+    {name = "ruff"},
+    {name = "mypy"}
+]
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.csharp]
+command = "csharp-language-server"
+
+[[language]]
+name = "c-sharp"
+language-servers = ["csharp"]
+
+[language-server.typos]
+command = "typos-lsp"
+
+[language-server.rust-analyzer]
+timeout = 180
+command = "/home/thomas/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer"
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[language-server.rust-analyzer.config.completion.snippets."Ok"]
+postfix = "ok"
+body = "Ok(${receiver})"
+description = "Wrap the expression in a `Result::Ok`"
+scope = "expr"
+
+[language-server.rust-analyzer.config.completion.snippets."Arc::new"]
+postfix = "arc"
+body = "Arc::new(${receiver})"
+requires = "std::sync::Arc"
+description = "Put the expression into an `Arc`"
+scope = "expr"
+
+[language-server.rust-analyzer.config.completion.snippets."Some"]
+postfix = "some"
+body = "Some(${receiver})"
+description = "Wrap the expression in an `Option::Some`"
+scope = "expr"
+
+[language-server.rust-analyzer.config.completion.snippets."Err"]
+postfix = "err"
+body = "Err(${receiver})"
+description = "Wrap the expression in a `Result::Err`"
+scope = "expr"
+
+[language-server.rust-analyzer.config.completion.snippets."Rc::new"]
+postfix = "rc"
+body = "Rc::new(${receiver})"
+requires = "std::rc::Rc"
+description = "Put the expression into an `Rc`"
+scope = "expr"
+
+[language-server.rust-analyzer.config.completion.snippets."Arc::new(Mutex::new)"]
+postfix = "arc_mutex"
+body = "Arc::new(Mutex::new(${receiver}))"
+requires = "std::sync::{Arc, Mutex}"
+description = "Put the expression into an `Arc<Mutex>`"
+scope = "expr"
+
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+[language-server.tailwindcss]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[language-server.tailwindcss.config.tailwindCSS]
+includeLanguages = { rust = "javascript" }
+classFunctions = ["\\.class", "Some"]
+files.exclude = ["**/.git/**", "**/target/**", "**/dist/**", "**/pkg/**"]
+experimental.configFile = "tailwind.css"
+
+[[language]]
+name = "rust"
+language-servers = ["tailwindcss", "rust-analyzer", "typos"]
+auto-format = true
+
+[[language]]
+name = "html"
+language-servers = ["tailwindcss", "biome"]
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "tailwindcss",
+]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "tailwindcss",
+]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "tailwindcss",
+]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "tailwindcss",
+]
+
+[[language]]
+name = "json"
+language-servers = [
+  { name = "vscode-json-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
+auto-format = true
+
+[[language]]
+name = "css"
+auto-format = true
+language-servers = ["biome", "tailwindcss"]
+
+[[language]]
+name = "vue"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "vue"] }
+language-servers = ["typescript-language-server", "tailwindcss"]
+
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["format", "-"] }
+
